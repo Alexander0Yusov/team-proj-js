@@ -1,62 +1,58 @@
 import Api from './api';
-import { initRatings } from './init-rating';
+
 import { noFilmError, onFetchError } from './components/msg-error';
 import getRefs from './components/get-refs';
-import { genresList } from './components/genre-list';
 import { createGallery, clearGallery } from './render-card';
 
 const searchApi = new Api();
 const refs = getRefs();
 
-refs.searchForm.addEventListener('submit', onSearchFormSubmit);
+// refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 
 async function onSearchFormSubmit(e) {
   e.preventDefault();
   const searchQuery = refs.searchInput.value;
 
   if (searchQuery === '') {
-    onFetchError()
+    onFetchError();
   }
- 
+
   if (searchQuery) {
     searchMovies(searchQuery);
   }
 }
 
-async function searchMovies(query) {
-  try {
-    const response = await searchApi.searchMovieByQuery(query);
+export async function searchMovies(response) {
+  // try {
+  // const response = await searchApi.searchMovieByQuery(query);
 
-    if (response.results === null || response.results.length === 0) {
-      clearGallery();
-      noSearchResults();
-      document.querySelector('#tui-pagination-container').classList.add('hidden');
-    }
-    else if (response.results) {
-      createGallery(response.results.slice(0, 10));
-    }
-
-  } catch (error) {
-    noFilmError();
+  if (response.results.length === 0 || response.results === null) {
+    clearGallery();
+    noSearchResults();
+    document.querySelector('#tui-pagination-container').classList.add('hidden');
+  } else if (response.results) {
+    createGallery(response.results.slice(0, 10));
   }
+  // } catch (error) {
+  //   noFilmError();
+  // }
 }
 
-function noSearchResults() {
+export function noSearchResults() {
   refs.galleryCatalog.insertAdjacentHTML(
-    "beforebegin",
+    'beforebegin',
     `<p class="no-results">
   OOPS...<br />
   We are very sorry!<br />
   We don’t have any results due to your search.
   </p>`
-  )
+  );
 }
-
 
 export { onSearchFormSubmit };
 
 // Володя
-    
+
 // const axios = require('axios').default;
 
 // const API_KEY = '225e339996bc91260b33199c383c8881';
@@ -138,7 +134,6 @@ export { onSearchFormSubmit };
 //   movieList.innerHTML = markup;
 // }
 
-
 // async function handleSearchFormSubmit(e) {
 //   e.preventDefault();
 //   const query = searchInput.value;
@@ -172,7 +167,6 @@ export { onSearchFormSubmit };
 
 // renderWeekMovies();
 
-   
 // const form = document.getElementById('search-form');
 // const input = document.getElementById('search-input');
 // const movieList = document.getElementById('movie-list');
@@ -209,7 +203,6 @@ export { onSearchFormSubmit };
 //     movieList.appendChild(message);
 //   }
 // });
-
 
 // const form = document.getElementById('search-form');
 // const input = document.getElementById('search-input');

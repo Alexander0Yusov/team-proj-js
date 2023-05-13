@@ -2,27 +2,61 @@ export class Api_widely {
   #API_KEY = '225e339996bc91260b33199c383c8881';
 
   #requestString = null;
-  #response = null;
+  #query = null;
+  #year = null;
   #genreId = null;
+  #code = null;
+  #CODE = null;
+  #response = null;
 
   constructor() {
     this.page = 1;
   }
 
-  set genreId(genreId) {
-    this.#genreId = genreId;
+  get requestString() {
+    return this.#requestString;
+  }
+
+  set query(value) {
+    this.#query = value;
+  }
+  get query() {
+    return this.#query;
+  }
+
+  set year(value) {
+    this.#year = value;
+  }
+  get year() {
+    return this.#year;
+  }
+
+  set genreId(value) {
+    this.#genreId = value;
   }
   get genreId() {
     return this.#genreId;
   }
+
   set response(res) {
     this.#response = res;
   }
   get response() {
     return this.#response;
   }
-  get requestString() {
-    return this.#requestString;
+
+  set code(value) {
+    this.#code = value;
+  }
+  get code() {
+    return this.#code;
+  }
+
+  set CODE(value) {
+    this.#CODE = value;
+  }
+  get CODE() {
+    return this.#CODE;
   }
 
   paginateByPage(page) {

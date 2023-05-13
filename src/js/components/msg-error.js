@@ -1,11 +1,9 @@
 import Notiflix from 'notiflix';
 
-export { noFilmError, onFetchError, noGenresError};
+export { noFilmError, onFetchError, noGenresError };
 
 function noFilmError() {
-  Notiflix.Notify.warning(
-    `Sorry, there are no films. Please try again late`
-  );
+  Notiflix.Notify.warning(`Bad request. Please try again late`);
 }
 
 function onFetchError() {
@@ -13,9 +11,5 @@ function onFetchError() {
 }
 
 function noGenresError() {
-    Notiflix.Notify.warning(
-      `Sorry, there are no genres. Please try again late`
-    );
-  }
-
-
+  Notiflix.Notify.warning(`Sorry, there are no genres. Please try again late`);
+}

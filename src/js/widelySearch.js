@@ -5,10 +5,11 @@ import {
   languagesStore,
   countriesStore,
 } from './widelySearch_slave';
-import { startSpinner, stopSpinner } from './loader';
+import { onFetchError } from './components/msg-error';
+import { pagiSubmit } from './pagi';
 
 const form = document.querySelector('.filmFormWide');
-// export const Api_widely_form = new Api_widely();
+export const Api_widely_form = new Api_widely();
 
 window.addEventListener('click', hideDropdownMenu);
 form.addEventListener('submit', onSubmit);
@@ -54,7 +55,7 @@ form.country.addEventListener('input', async e => {
         throw new Error(`Error! status: ${res.status}`);
       }
       const country = res.map(item => item.name.common);
-      // console.log('Country | ', country);
+
       showDropdownMenu(e.target);
       fillDropdownMenu(e.target, country);
     } catch (err) {
@@ -66,27 +67,23 @@ form.country.addEventListener('input', async e => {
 // SUBMIT
 async function onSubmit(e) {
   e.preventDefault();
+
   const { query, year, genre, country } = e.currentTarget.elements;
   const { code, CODE } = await getCodeLang_CodeCountry(country.value);
 
-  toWideForm();
-  Api_widely_form.genreId = findGenreId(genre.value);
+  if (String(query.value).trim() === '') {
+    onFetchError();
+    console.log('hi');
+  } else {
+    toWideForm();
+    Api_widely_form.query = query.value;
+    Api_widely_form.genreId = findGenreId(genre.value);
+    Api_widely_form.year = year.value;
+    Api_widely_form.code = code;
+    Api_widely_form.CODE = CODE;
 
-  Api_widely_form.requestString = null;
-  Api_widely_form.response = null;
-
-  startSpinner();
-  Api_widely_form.response = searchData.response = await getDataFromDB(
-    query.value,
-    year.value,
-    code,
-    CODE,
-    1
-  );
-  stopSpinner();
-
-  console.log(Api_widely_form.response);
-  console.log(Api_widely_form.requestString);
+    pagiSubmit();
+  }
 }
 
 export function toWideForm() {
@@ -187,23 +184,6 @@ async function getAssistentCountries(tryWriteCountry) {
 function filterByGenre(array, genreId) {
   if (array.length !== 0) {
     return array.filter(item => item.genre_ids.includes(genreId));
-  }
-}
-
-async function getDataFromDB(query, year, code, CODE, page) {
-  try {
-    const response = await Api_widely_form.searhByNameYearCountry({
-      query: query || null,
-      year: year || null,
-      language: code && CODE && `${code}-${CODE}`,
-      page: page,
-    });
-    if (response.status) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    return await response;
-  } catch (err) {
-    console.log(err.message);
   }
 }
 

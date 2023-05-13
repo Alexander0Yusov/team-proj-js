@@ -1,7 +1,10 @@
 import Pagination from 'tui-pagination';
 import Api from './api';
-import { Api_widely } from './widelySearch_slave';
+import { Api_widely_form } from './widelySearch';
 import { createGallery } from './render-card';
+import { noFilmError } from './components/msg-error';
+import { searchMovies } from './seachcatalog';
+import { startSpinner, stopSpinner } from './loader';
 
 const container = document.getElementById('tui-pagination-container');
 const options = {
@@ -29,8 +32,9 @@ const options = {
 };
 
 const api = new Api();
-const api_widely = new Api_widely();
 const pagination = new Pagination(container, options);
+let isDefaultRender = true;
+pagiIni();
 
 // onLoadPage
 async function pagiIni() {
@@ -39,11 +43,9 @@ async function pagiIni() {
     createGallery(response.results);
     pagination.reset(response.total_results);
   } catch (error) {
-    console.error('Error initializing pagination:', error);
+    noFilmError();
   }
 }
-pagiIni();
-let isDefaultRender = true;
 
 // onBefore-week
 pagination.on('beforeMove', async function (eventData) {
@@ -55,36 +57,45 @@ pagination.on('beforeMove', async function (eventData) {
       const response = await api.weekTrends();
       createGallery(response.results);
     } catch (error) {
-      console.error('Error fetching movie data:', error);
+      noFilmError();
     }
   } else {
     try {
-      const response = await api_widely.paginateByPage(currentPage);
+      const response = await Api_widely_form.paginateByPage(currentPage);
       createGallery(response.results);
     } catch (error) {
-      console.error('Error fetching movie data:', error);
+      noFilmError();
     }
   }
 });
 
-// onSubmit
-// const submBtn = document.querySelector('.search-button');
-// submBtn.addEventListener('click', pagiSubmit);
-let queryStr;
+export async function pagiSubmit() {
+  startSpinner();
+  isDefaultRender = false;
+  const { query, year, code, CODE } = Api_widely_form;
 
-export async function pagiSubmit(value) {
-  queryStr = value;
-  if (value !== '') {
-    isDefaultRender = false;
-    try {
-      const response = await api_widely.searhByNameYearCountry({
-        query: queryStr,
-        page: 1,
-      });
-      createGallery(response.results);
-      pagination.reset(response.total_results);
-    } catch (error) {
-      console.error('Error initializing pagination:', error);
+  console.log(Api_widely_form);
+  Api_widely_form.response = await getDataFromDB(query, year, code, CODE, 1);
+
+  searchMovies(Api_widely_form.response);
+  pagination.reset(Api_widely_form.response.total_results);
+  stopSpinner();
+}
+
+async function getDataFromDB(query, year, code, CODE, page) {
+  try {
+    const response = await Api_widely_form.searhByNameYearCountry({
+      query: query || null,
+      year: year || null,
+      language: code && CODE && `${code}-${CODE}`,
+      page: page,
+    });
+    if (response.status) {
+      throw new Error(`Error! status: ${response.status}`);
     }
+    return await response;
+  } catch (err) {
+    console.log(err.message);
+    noFilmError();
   }
 }
