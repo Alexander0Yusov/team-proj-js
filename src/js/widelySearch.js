@@ -16,7 +16,7 @@ form.addEventListener('submit', onSubmit);
 form.addEventListener('click', selectDropdownVariant);
 
 form.query.addEventListener('change', e => {
-  console.log('Film input: ', e.target.value);
+  // console.log('Film input: ', e.target.value);
 });
 
 form.year.addEventListener('input', e => {
