@@ -1,6 +1,5 @@
 import getRefs from './components/get-refs';
 import { genresList } from './components/genre-list';
-import initRating from './init-rating';
 
 const refs = getRefs();
 
@@ -13,8 +12,6 @@ function markup(data) {
       const imageUrl = poster_path
         ? `https://image.tmdb.org/t/p/w500/${poster_path}`
         : 'https://via.placeholder.com/395x574?text=No+Image';
-
-      // initRatings();
 
       return `<li class="gallery__item" id='${id}'>
         <article>

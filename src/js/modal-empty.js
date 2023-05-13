@@ -1,7 +1,3 @@
-import getRefs from './components/get-refs';
-
-const refs = getRefs();
-
 const modal = document.querySelector('.modal-empty__backdrop');
 const close = document.querySelector('.modal-empty__close');
 modal.addEventListener('click', onModalEmpty);

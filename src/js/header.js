@@ -1,4 +1,3 @@
-// Higlights active link in navigation menu / mobile menu
 import getRefs from './components/get-refs';
 
 const refs = getRefs();

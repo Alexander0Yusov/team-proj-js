@@ -78,7 +78,7 @@
   border-radius: 5px;
   overflow: hidden;
   position: relative;
-  color: var( --color-text-primary);
+  color: var(--color-text-primary);
   background-color: $color-bg-header;
   transition: 0.5s;
   width: 100%;
@@ -93,14 +93,6 @@
     width: calc((100% - 20px) / 3);
   }
 }
-
-// .footer-modal__box:not(:last-child) {
-//   margin-bottom: 20px;
-
-//   @media screen and (min-width: 768px) {
-//     margin-bottom: 0;
-//   }
-// }
 
 .footer-modal__box::before {
   content: '';

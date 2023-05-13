@@ -30,7 +30,6 @@ export default class Api {
     this.searchPage = 1;
     this.totalSearchPages = 1;
     this.searchQuery = '';
-    // this.searchQuery = '';
   }
 
   nextPage() {
@@ -75,9 +74,6 @@ export default class Api {
   getSearchQuery() {
     return this.searchQuery;
   }
-  // get query() {
-  //   return this.seachQuery;
-  // }
 
   set query(newQuery) {
     this.searchQuery = newQuery;

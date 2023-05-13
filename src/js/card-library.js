@@ -1,8 +1,6 @@
 import { modalMovie } from './modal_movie';
 import { createGallery } from './render-card';
 
-import { refs } from './modal_movie';
-
 const movieClicked = document.querySelector('.library-cards__list');
 const noFilmsMessage = document.querySelector('.alert__message');
 const libraryCards = document.querySelector('.library-cards');
@@ -12,9 +10,7 @@ window.addEventListener('load', onLoadPage);
 
 function onLoadPage() {
   const KEY_MOVIE_LS = 'LibraryMovie';
-  // const data = null
-  //   ? undefined
-  //   : JSON.parse(localStorage.getItem(KEY_MOVIE_LS));
+
   const data = JSON.parse(localStorage.getItem(KEY_MOVIE_LS));
 
   if (data === null || data.length === 0) {

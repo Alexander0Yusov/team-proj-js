@@ -1,11 +1,10 @@
 .widelySearch {
   position: relative;
-  // outline: 1px solid tomato;
   display: flex;
 
   justify-content: center;
   width: 100%;
-  background-color: $color-primary-dark;
+  background-color: var(--bg-primary);
   padding-top: 40px;
   padding-bottom: 8px;
 
@@ -20,10 +19,9 @@
 }
 
 .filmFormWide {
-  // outline: 1px solid tomato;
   display: flex;
   flex-wrap: wrap;
-  background-color: $color-primary-dark;
+  background-color: var(--bg-primary);
   width: 280px;
 
   @include tablet {
@@ -52,10 +50,10 @@
     height: 100%;
     padding: 10px 20px;
     border-radius: 8px;
-    border: 1px solid $color-primary-light;
+    border: 1px solid var(--color-text-neutral);
 
     @include font-text($fw: 500, $fs: 14, $lh: 1.42, $ls: 0.02);
-    color: $color-neutral-light;
+    color: var(--color-text-neutral);
     background-color: transparent;
     outline: none;
 
@@ -70,10 +68,10 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    border: 1px solid $color-neutral-light;
+    border: 1px solid var(--color-text-neutral);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background-color: $color-primary-dark;
+    background-color: var(--bg-primary);
 
     display: none;
     &.isVisible {
@@ -86,10 +84,10 @@
     align-items: center;
 
     height: 40px;
-    color: $color-text-secondary;
+    color: var(--color-text-neutral);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    border-top: 1px solid $color-neutral-light;
+    border-top: 1px solid var(--color-text-neutral);
     @include font-text($fw: 500, $fs: 14, $lh: 1.42, $ls: 0.02);
 
     @include desktop {
@@ -97,7 +95,7 @@
     }
   }
   & li:hover {
-    color: $color-text-focus;
+    color: var(--color-text-neutral);
     @include font-text($fw: 500, $fs: 16, $lh: 1.5, $ls: 0.02);
     @include desktop {
       @include font-text($fw: 500, $fs: 18, $lh: 1.5, $ls: 0.02);
