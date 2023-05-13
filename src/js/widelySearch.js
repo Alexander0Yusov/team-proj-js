@@ -54,8 +54,7 @@ form.country.addEventListener('input', async e => {
       if (res.status) {
         throw new Error(`Error! status: ${res.status}`);
       }
-      const country = res.map(item => item.name.common);
-
+      const country = res.map(item => item.name.official);
       showDropdownMenu(e.target);
       fillDropdownMenu(e.target, country);
     } catch (err) {
@@ -73,7 +72,6 @@ async function onSubmit(e) {
 
   if (String(query.value).trim() === '') {
     onFetchError();
-    console.log('hi');
   } else {
     toWideForm();
     Api_widely_form.query = query.value;
