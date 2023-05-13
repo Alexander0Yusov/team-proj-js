@@ -38,6 +38,7 @@ pagiIni();
 
 // onLoadPage
 async function pagiIni() {
+  startSpinner();
   try {
     const response = await api.weekTrends();
     createGallery(response.results);
@@ -45,12 +46,13 @@ async function pagiIni() {
   } catch (error) {
     noFilmError();
   }
+  stopSpinner();
 }
 
 // onBefore-week
 pagination.on('beforeMove', async function (eventData) {
   const currentPage = eventData.page;
-
+  startSpinner();
   if (isDefaultRender) {
     try {
       api.setPage(currentPage);
@@ -67,6 +69,7 @@ pagination.on('beforeMove', async function (eventData) {
       noFilmError();
     }
   }
+  stopSpinner();
 });
 
 export async function pagiSubmit() {
