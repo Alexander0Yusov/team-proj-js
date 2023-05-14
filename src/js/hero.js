@@ -20,6 +20,7 @@ async function getDayMovieTrend() {
       'beforeend',
       renderHeroPageMarkup(response.results[randomValue])
     );
+
     const heroButton = document.querySelector('.hero__button');
     heroButton.addEventListener('click', onOpenModalEmpty);
   } catch (err) {
@@ -65,7 +66,7 @@ function renderHeroPageMarkup({
           <div class="rating__value">${vote_average}</div>
         </div>
         <p class = "hero__text">${overview.slice(0, 150) + '...'}</p>
-        <button type="button" class="hero__button" id="trailer" >Watch trailer</button>
+        <button type="button" class="hero__button" id="trailer" data-trendId="${id}">Watch trailer</button>
         <div>
        `;
 }
@@ -73,7 +74,7 @@ function renderHeroPageMarkup({
 function renderDefaultMarkup() {
   return `
     <div class="hero__info">
-      <h1 class="hero__title">Let’s Make Your Own Cinema</h1>
+      <h1 class="hero__title">Let's Make Your Own Cinema</h1>
       <p class="hero__text">Is a guide to creating a personalized movie theater experience.
       You'll need a projector, screen, and speakers.<span class="paragraph__hidden">Decorate your space,
       choose your films, and stock up on snacks for the full experience.</span></p>
