@@ -163,6 +163,13 @@ export default class Api {
     await new Promise(r => setTimeout(r, 1000));
     return fetch(str).then(res => res.json());
   }
+
+  async searhMovieKey(movie_id) {
+    let str = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${API_KEY}&language=en-US`;
+
+    await new Promise(r => setTimeout(r, 1000));
+    return fetch(str).then(res => res.json());
+  }
 }
 
 // export default class ApiServer {
