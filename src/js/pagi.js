@@ -78,7 +78,7 @@ export async function pagiSubmit() {
   const { query, year, code, CODE } = Api_widely_form;
 
   Api_widely_form.response = await getDataFromDB(query, year, code, CODE, 1);
-  console.log(Api_widely_form.requestString);
+  // console.log(Api_widely_form.requestString);
   searchMovies(Api_widely_form.response);
   pagination.reset(Api_widely_form.response.total_results);
   stopSpinner();
